@@ -14,6 +14,7 @@ import model.apply_manager;
 import model.disease_web;
 import model.notice;
 import model.search;
+import oracle.net.aso.s;
 import service.HealthInfoFileUploadClass;
 import service.ManagerApplyFileUploadClass;
 import service.MemberService;
@@ -303,7 +304,8 @@ public class TestController {
 
 	@RequestMapping("managerApply.do")
 	public void managerApply(apply_manager apply, MultipartFile file) {
-		if (file != null) {
+		
+		if (!file.isEmpty()) {
 			ArrayList<String> fileResult = ManagerApplyFileUploadClass.FileUpload(file);
 			String absLoc = fileResult.get(1);
 			String relLoc = fileResult.get(0);
@@ -361,10 +363,24 @@ public class TestController {
 		return "redirect: noticeListForm.do";
 	}
 	
-	public ArrayList<search> getListOfSearch(int age){
+	@RequestMapping("get10Disease.do")
+	public @ResponseBody ArrayList<search> getListOfSearch(HttpSession session){
+		String id= (String)session.getAttribute("muid");
 		ArrayList<search> sList = new ArrayList<search>();
+		int age=0;
+		System.out.println(id);
 		
+		if(id!=null){
+		MEMBER_USER m= ms.findUserById(id);
+		if(m!=null){
+		System.out.println(m);
+		age= m.getAge();		
+		}	}
+		sList = tservice.getListOfSearch(age);
 		return sList;
 	}
+	@RequestMapping("todacMainForm.do")
+	public void todacMain() {}
+	
 
 }

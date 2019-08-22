@@ -48,25 +48,16 @@ public class AdminService {
 	//관리자로그인
 	public int adminLogin(HashMap<String, Object>param) {
 		String maid=(String) param.get("maid");
-		String pwd = (String) param.get("pw");
-		
+		String pwd = (String) param.get("pwd");
 		HashMap<String, Object> result = addao.selectAdminById(maid);
-		System.out.println(result);
 		if(result!=null) {
-			String respwd =(String)result.get("PW");
-			if(respwd.equals(pwd)) {
+			if((String)result.get("pwd")==pwd) {
 				return 1;
 			}
 			return 0;
 		}
 		return 0;
 	}
-	
-	//관리자 체크
-	public HashMap<String, Object> checkAdmin(String maid){
-		return addao.selectAdminById(maid);
-	}
-	
 	
 	
 }
