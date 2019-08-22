@@ -95,6 +95,25 @@ font-weight: bold;
 <script type="text/javascript">
 	$('document').ready(function() {
 		$.ajax({
+			url : "getSessionId.do",
+			success : function(data) {
+				var res=data;
+				if(data!=""){
+				var text = "";
+				
+				text = text+ '<div class="card" style="margin-top:40px;">'
+				text = text+ '<div class="card-header" style="height: 30px; text-align:left; padding: 0px;">'+data+'님 환영합니다!</div>'
+				text = text+ '<div class="card-body" style="height: 70px;"><a href="show_mypage.do">내 정보  </a> 　　　<a href="logout.do">로그아웃 </a></div>'
+				text = text+ '</div>'
+				
+				$('#loginDiv').html("")
+				$('#loginDiv').html(text)
+				}
+			}
+
+		});
+		
+		$.ajax({
 			url : "get10Disease.do",
 			success : function(data) {
 				var res = "";
@@ -114,6 +133,9 @@ font-weight: bold;
 		$("#close").click(function() {
 			$("#SideDiv").removeClass("open");
 		});
+		$('#loginBtn').click(function(){
+			location.href="loginForm.do";			
+		})
 
 	});
 </script>
@@ -175,9 +197,11 @@ font-weight: bold;
 		<img alt="" src="img/closeIcon.png" id="close" width="30px;"
 			height="30px;">
 		<div id="loginDiv">
-		<button type="button" class="btn btn-primary"
+
+	 	<button type="button" class="btn btn-primary" id="loginBtn"
 			style="width: 200px; height: 70px; border-color: #ccdcff; background-color: #ccdcff; font-size: large; font-weight: bold; color: #808080; margin-top: 40px;">통합
-			로그인</button>
+			로그인</button> 
+			
 			</div>
 		<table id="PopSearchTable" class="table-hover">
 			<tr>

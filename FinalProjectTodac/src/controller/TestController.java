@@ -379,6 +379,12 @@ public class TestController {
 		sList = tservice.getListOfSearch(age);
 		return sList;
 	}
+	@RequestMapping("getSessionId.do")
+	public @ResponseBody String getSessionId(HttpSession session) {
+		String id="";
+		id = (String)session.getAttribute("muid");		
+		return id;
+	}
 	@RequestMapping("todacMainForm.do")
 	public void todacMain() {}
 	
